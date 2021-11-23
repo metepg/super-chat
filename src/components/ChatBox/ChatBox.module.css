@@ -1,0 +1,19 @@
+.controller {
+  border: 3px solid black;
+  height: 80vh;
+  width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 10%;
+}
+
+.aside {
+  background-color: cornflowerblue;
+  grid-row: 1/6;
+}
+
+.feed {
+  grid-row: 6/7;
+  grid-column: 2/7;
+}
