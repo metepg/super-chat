@@ -1,11 +1,11 @@
-import MessageFeed from './components/MessageFeed/MessageFeed';
 import Header from './components/Header/Header';
+import ChatBox from './components/ChatBox/Chatbox';
 function App() {
   return (
-    <>
+    <div>
       <Header />
-      <MessageFeed />
-    </>
+      <ChatBox />
+    </div>
   );
 }
 

@@ -1,5 +1,7 @@
+import css from './MessageFeed.module.css';
+
 const MessageFeed = () => {
-  return <h2>feed</h2>;
+  return <div className={css.box}>feed</div>;
 };
 
 export default MessageFeed;
