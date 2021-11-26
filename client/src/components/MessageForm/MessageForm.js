@@ -14,6 +14,9 @@ const MessageForm = () => {
       return;
     }
     createMessage({ message });
+    // Tyhjennä tekstikenttä lähettämisen jälkeen
+    e.target.reset();
+    setMessage('');
   }
 
   return (
