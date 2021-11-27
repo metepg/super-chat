@@ -23,7 +23,7 @@ function App() {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            marginTop: '400px',
+            marginTop: '20px',
           }}
         >
           <Signup />
