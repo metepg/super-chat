@@ -15,8 +15,9 @@ function App() {
   // Tokenin voimassaolon tarkistaminen
   useEffect(() => {
     const loginToken = localStorage.getItem('jwt');
-    if (!loginToken) return;
-    setIsAuthenticated(true);
+    if (loginToken) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   async function loginUser(name, password) {
