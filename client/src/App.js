@@ -2,19 +2,49 @@ import Header from './components/Header/Header';
 import ChatBox from './components/ChatBox/Chatbox';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
-import { useState } from 'react';
-// import MessageForm from './components/MessageForm/MessageForm';
+import { useEffect, useState } from 'react';
+import {
+  validateLogin,
+  validateSignup,
+} from './components/utils/authentication';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  function auth(token) {
+  // Katsoo aina sivun latautuessa löytyykö token jo localstoragesta
+  // TODO:
+  // Tokenin voimassaolon tarkistaminen
+  useEffect(() => {
+    const loginToken = localStorage.getItem('jwt');
+    if (!loginToken) return;
     setIsAuthenticated(true);
-    localStorage.setItem('jwt', token);
+  }, []);
+
+  async function loginUser(name, password) {
+    const userData = await validateLogin(name, password);
+    if (!userData) return;
+    localStorage.setItem('jwt', userData.token);
+    setIsAuthenticated(true);
   }
+
+  async function signupUser(name, password) {
+    const userData = await validateSignup(name, password);
+    if (!userData) return;
+    alert(`Created user ${userData.name}`);
+    setIsAuthenticated(true);
+  }
+
   return (
-    <div>
+    <main>
       {isAuthenticated ? (
         <>
+          <button
+            onClick={() => {
+              localStorage.clear();
+              setIsAuthenticated(false);
+            }}
+          >
+            LOGOUT
+          </button>
           <Header />
           <ChatBox />
         </>
@@ -26,11 +56,11 @@ function App() {
             marginTop: '20px',
           }}
         >
-          <Signup />
-          <Login auth={auth} />
+          <Signup signupUser={signupUser} />
+          <Login loginUser={loginUser} />
         </section>
       )}
-    </div>
+    </main>
   );
 }
 

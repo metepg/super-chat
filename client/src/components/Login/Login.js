@@ -1,28 +1,26 @@
 import { useState } from 'react';
-import { login } from '../../api/authentication';
 import css from './Login.module.css';
 
-const Login = ({ auth }) => {
+const Login = ({ loginUser }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  async function validateForm(e) {
+  function validateForm(e) {
     e.preventDefault();
-    try {
-      const data = await login({ name, password });
-      if (!data) return;
-      auth(data.token);
-    } catch (error) {
-      console.log(error);
-    }
-    setName('');
+    if (!(name.trim() && password.trim())) return;
+    loginUser(name, password);
     setPassword('');
   }
+
   return (
-    <form onSubmit={(e) => validateForm(e)} className={css.form}>
+    <form
+      onSubmit={(e) => validateForm(e, name, password)}
+      className={css.form}
+    >
       <input
         required
         placeholder="name"
+        type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
