@@ -40,8 +40,12 @@ function App() {
         <>
           <button
             onClick={() => {
-              localStorage.clear();
-              setIsAuthenticated(false);
+              // eslint-disable-next-line no-restricted-globals
+              const logout = confirm('Want to logout?');
+              if (logout) {
+                localStorage.clear();
+                setIsAuthenticated(false);
+              }
             }}
           >
             LOGOUT
