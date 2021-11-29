@@ -3,12 +3,11 @@ const Message = require("../models/message");
 
 router.post("/", async (req, res) => {
   const date = Date.now();
-  console.log(date);
-  const { message, messageTime } = req.body;
-  console.log(message, messageTime);
+  const { message, messageTime, userName } = req.body;
   const saveMessage = new Message({
     message,
     messageTime: date,
+    userName,
   });
   try {
     const savedMessage = await saveMessage.save();
@@ -16,7 +15,6 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  //console.log(req.body);
 });
 
 router.get("/", async (req, res) => {
