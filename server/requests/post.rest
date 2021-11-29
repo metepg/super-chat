@@ -1,6 +1,7 @@
-POST http://localhost:3001/post
+POST http://localhost:3001/api/message
 Content-Type: application/json
 
 {
-    "message":"yeah"
+    "message":"a",
+    "messageTime": "1"
 }
