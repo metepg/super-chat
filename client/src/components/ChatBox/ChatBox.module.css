@@ -6,12 +6,17 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 10%;
+
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+
 }
 
 .aside {
   background-color: #D6E4F0;
   grid-row: 2/7;
   grid-column: 6/-1;
+
+  background-image: linear-gradient(to top, #D6E4F0 0%, #e7f0fd 100%);
 }
 
 .feed {
@@ -29,12 +34,17 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
+  background-image: linear-gradient(to top, #1E56A0 0%, #330867 100%);
+
 }
 
 .toppaneright {
   background-color: #163172;
   grid-row: 1/1;
   grid-column: 6/7;
+
+  background-image: linear-gradient(to top, #1E56A0 0%, #330867 100%);
 }
 
 .usersText {
@@ -102,3 +112,4 @@
   padding: 5px 10px 5px 15px;
   background-color: #f0f0f0;
 }
+

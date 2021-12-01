@@ -15,5 +15,5 @@
 }
 
 input:invalid {
-    background-color: #D6E4F0;
+    background-image: linear-gradient(to top, #D6E4F0 0%, #e7f0fd 100%);
 }
