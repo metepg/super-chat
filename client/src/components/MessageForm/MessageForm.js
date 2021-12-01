@@ -23,7 +23,7 @@ const MessageForm = () => {
   return (
     <form onSubmit={(e) => validate(e)}>
       <input
-          pattern="^[A-Za-z0-9]{1,80}$"
+          pattern="^{1,80}$"
           title="Max 80 characters."
           maxlength="80"
           required="required"

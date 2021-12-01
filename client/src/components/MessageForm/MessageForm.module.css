@@ -13,3 +13,7 @@
     margin-top: 10px;
     width: 13%;
 }
+
+input:invalid {
+    background-color: #D6E4F0;
+}
