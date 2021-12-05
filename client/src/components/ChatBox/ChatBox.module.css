@@ -113,3 +113,21 @@
   background-color: #f0f0f0;
 }
 
+.messagesList {
+  list-style-type: none;
+  margin: 0px 0px 0px -40px;
+}
+
+.liMessage {
+  padding: 15px 0px 0px 0px;
+}
+
+.removeButton {
+  border-radius: 7px 7px 7px 7px;
+  margin: 0px 0px 0px 15px;
+  padding: 2px 2px 2px 2px;
+  font-size: 9px;
+  width: 40px;
+  height: 16px;
+}
+

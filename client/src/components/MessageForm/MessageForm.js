@@ -25,7 +25,7 @@ const MessageForm = () => {
       <input
           pattern="^{1,80}$"
           title="Max 80 characters."
-          maxlength="80"
+          maxLength="80"
           required="required"
           className={css.inputChat}
           placeholder="Type something"
