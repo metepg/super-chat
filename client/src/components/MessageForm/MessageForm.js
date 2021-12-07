@@ -14,7 +14,9 @@ const MessageForm = () => {
     if (!message) {
       return;
     }
-    createMessage({ message });
+    const userName = JSON.parse(localStorage.getItem('user'));
+
+    createMessage({ message, userName: userName.userName });
     // Tyhjennä tekstikenttä lähettämisen jälkeen
     e.target.reset();
     setMessage('');
@@ -23,15 +25,17 @@ const MessageForm = () => {
   return (
     <form onSubmit={(e) => validate(e)}>
       <input
-          pattern="^\w{1,80}$"
-          title="Max 80 characters."
-          maxLength="80"
-          required="required"
-          className={css.inputChat}
-          placeholder="Type something"
-          onChange={(e) => setMessage(e.target.value)}
+        pattern="^\w{1,80}$"
+        title="Max 80 characters."
+        maxLength="80"
+        required="required"
+        className={css.inputChat}
+        placeholder="Type something"
+        onChange={(e) => setMessage(e.target.value)}
       />
-      <button className={css.sendButton} type="submit">SEND</button>
+      <button className={css.sendButton} type="submit">
+        SEND
+      </button>
     </form>
   );
 };

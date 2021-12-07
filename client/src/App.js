@@ -13,16 +13,18 @@ function App() {
   // TODO:
   // Tokenin voimassaolon tarkistaminen
   useEffect(() => {
-    const loginToken = localStorage.getItem('jwt');
-    if (loginToken) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user?.token) {
       setIsAuthenticated(true);
     }
   }, []);
 
   async function loginUser(name, password) {
     const userData = await validateLogin(name, password);
+    console.log(userData);
     if (!userData) return;
-    localStorage.setItem('jwt', userData.token);
+    const obg = { userName: userData.id, token: userData.token };
+    localStorage.setItem('user', JSON.stringify(obg));
     setIsAuthenticated(true);
   }
 
