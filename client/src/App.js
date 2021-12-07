@@ -1,7 +1,6 @@
 import Header from './components/Header/Header';
 import ChatBox from './components/ChatBox/Chatbox';
-import Signup from './components/Signup/Signup';
-import Login from './components/Login/Login';
+import LoginSignup from './components/LoginSignup/LoginSignup';
 import { useEffect, useState } from 'react';
 import {
   validateLogin,
@@ -61,8 +60,8 @@ function App() {
             marginTop: '20px',
           }}
         >
-          <Signup signupUser={signupUser} />
-          <Login loginUser={loginUser} />
+          <LoginSignup action={loginUser} type={'login'} />
+          <LoginSignup action={signupUser} type={'signup'} />
         </section>
       )}
     </main>
