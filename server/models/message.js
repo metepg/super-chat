@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
   message: { type: String, required: true },
   messageTime: { type: Date, required: true },
+  userName: { type: String, required: true },
 });
 schema.set("toJSON", {
   virtuals: true,
