@@ -1,5 +1,10 @@
 .box {
-  background-color: burlywood;
+  background-color: #1E56A0;
   width: 100%;
   height: 100%;
+
+  background-image: linear-gradient(to top, #6b8cce 0%, #1E56A0 100%);
+
+
+
 }

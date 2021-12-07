@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { createMessage } from '../../api/messages';
+import { createMessage } from '../../api/message';
+import css from './MessageForm.module.css';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
@@ -22,10 +23,15 @@ const MessageForm = () => {
   return (
     <form onSubmit={(e) => validate(e)}>
       <input
-        placeholder="Type something"
-        onChange={(e) => setMessage(e.target.value)}
+          pattern="^\w{1,80}$"
+          title="Max 80 characters."
+          maxLength="80"
+          required="required"
+          className={css.inputChat}
+          placeholder="Type something"
+          onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">SEND</button>
+      <button className={css.sendButton} type="submit">SEND</button>
     </form>
   );
 };
