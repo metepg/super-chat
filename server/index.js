@@ -8,6 +8,27 @@ const app = express();
 const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+
+io.on("connection", (socket) => {
+  socket.on("message", (msg) => {
+    console.log("message" + JSON.stringify(msg));
+    io.emit("message", msg);
+  });
+});
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
+
+http.listen(4000, function () {
+  console.log("HTTP LISTENING PORT 4000");
+});
+
 // Middlewaret
 app.use(express.json());
 app.use(cors());
