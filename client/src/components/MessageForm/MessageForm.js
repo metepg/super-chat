@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
-import io from 'socket.io-client';
-
-const socket = io.connect('http://localhost:4000');
+import { socket } from '../../soketti';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
   // setMessage = asettaa inputille arvon kun kenttään kirjoitetaan
   const [message, setMessage] = useState('');
-  socket.on('message', function (msg) {
-    console.log('message' + JSON.stringify(msg));
-  });
   function validate(e) {
     // e.preventDefault estää sivun päivittymisen (default toiminto 90 luvulta kun lomakkeilla lähetettiin dataa)
     e.preventDefault();
@@ -24,6 +19,9 @@ const MessageForm = () => {
 
     createMessage({ message, userName: userName.userName });
     socket.emit('message', { message });
+    // socket.on('message', function (msg) {
+    //   console.log('message' + JSON.stringify(msg));
+    // });
     // Tyhjennä tekstikenttä lähettämisen jälkeen
     e.target.reset();
     setMessage('');
