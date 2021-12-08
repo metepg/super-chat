@@ -1,0 +1,11 @@
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5%;
+}
+@media screen and (max-width: 600px) {
+  .section {
+    flex-direction: column;
+  }
+}

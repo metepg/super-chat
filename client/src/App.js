@@ -1,6 +1,7 @@
 import Header from './components/Header/Header';
 import ChatBox from './components/ChatBox/Chatbox';
 import LoginSignup from './components/LoginSignup/LoginSignup';
+import css from './App.module.css';
 import { useEffect, useState } from 'react';
 import {
   validateLogin,
@@ -40,6 +41,10 @@ function App() {
       {isAuthenticated ? (
         <>
           <button
+            style={{
+              backgroundColor: 'whitesmoke',
+              marginLeft: '10%',
+            }}
             onClick={() => {
               // eslint-disable-next-line no-restricted-globals
               const logout = confirm('Want to logout?');
@@ -55,13 +60,7 @@ function App() {
           <ChatBox />
         </>
       ) : (
-        <section
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '20px',
-          }}
-        >
+        <section className={css.section}>
           <LoginSignup action={loginUser} type={'login'} />
           <LoginSignup action={signupUser} type={'signup'} />
         </section>
