@@ -9,7 +9,11 @@ const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, { cors: true });
+
+// Middlewaret
+app.use(express.json());
+app.use(cors());
 
 io.on("connection", (socket) => {
   socket.on("message", (msg) => {
@@ -28,10 +32,6 @@ io.on("connection", (socket) => {
 http.listen(4000, function () {
   console.log("HTTP LISTENING PORT 4000");
 });
-
-// Middlewaret
-app.use(express.json());
-app.use(cors());
 
 // Koodi
 app.get("/ping", (req, res) =>
