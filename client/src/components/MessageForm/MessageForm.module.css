@@ -1,19 +1,23 @@
 .inputChat {
-    background-color: whitesmoke;
-    padding: 8px;
-    margin-left: 15px;
-    margin-top: 10px;
-    width: 35%;
+  background-color: whitesmoke;
+  padding: 8px;
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 35%;
 }
 
 .sendButton {
-    background-color: whitesmoke;
-    padding: 8px;
-    margin-left: 15px;
-    margin-top: 10px;
-    width: 13%;
+  background-color: whitesmoke;
+  padding: 8px;
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 13%;
 }
-
+@media screen and (max-width: 600px) {
+  .sendButton {
+    width: 30%;
+  }
+}
 input:invalid {
-    background-image: linear-gradient(to top, #D6E4F0 0%, #e7f0fd 100%);
+  background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }

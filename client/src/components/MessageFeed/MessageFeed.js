@@ -4,9 +4,9 @@ import MessageForm from '../MessageForm/MessageForm';
 
 const MessageFeed = () => {
   return (
-      <div className={css.box}>
-        <MessageForm />
-      </div>
+    <div className={css.box}>
+      <MessageForm />
+    </div>
   );
 };
 

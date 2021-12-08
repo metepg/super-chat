@@ -8,9 +8,61 @@ const app = express();
 const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, { cors: true });
+
 // Middlewaret
 app.use(express.json());
 app.use(cors());
+
+io.on("connection", async (socket) => {
+  socket.join("chat");
+
+  try {
+    const messages = await Message.find({});
+    // const formatted = messages.map((m) => {
+    //   m.messageTime = new Date(m.messageTime).toLocaleString("en-GB");
+    //   return m;
+    // });
+
+    // const formatted = messages.map(
+    //   (m) =>{ return {...m, messageTime = new Date(m.messageTime).toLocaleString("en-GB")}
+    // }
+    // );
+    socket.emit("history", messages);
+  } catch (err) {
+    // Handle this error properly.
+    console.error(err);
+  }
+
+  // socket.on("message", (msg) => {
+  //   console.log("message" + JSON.stringify(msg));
+  //   io.emit("message", msg);
+  // });
+});
+
+io.on("sendMessage", (msg, callback) => {
+  const message = new Message({ message: msg, sender: socket.user });
+
+  message.save(function (err) {
+    if (err) {
+      return callback(err);
+    }
+
+    io.to("chat").emit("message", message);
+  });
+});
+
+// io.on("connection", (socket) => {
+//   console.log("a user connected");
+//   socket.on("disconnect", () => {
+//     console.log("user disconnected");
+//   });
+// });
+
+http.listen(4000, function () {
+  console.log("HTTP LISTENING PORT 4000");
+});
 
 // Koodi
 app.get("/ping", (req, res) =>

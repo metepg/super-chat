@@ -1,42 +1,56 @@
 .controller {
   border: 3px solid black;
   height: 80vh;
-  width: 80vw;
+  width: 80%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 10%;
 
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
 
+.superController {
+  grid-row: 2/6;
+  grid-column: 1/6;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.flexController {
+  display: flex;
+  padding-left: 15px;
+  justify-content: space-between;
 }
 
 .aside {
-  background-color: #D6E4F0;
+  background-color: #d6e4f0;
   grid-row: 2/7;
   grid-column: 6/-1;
 
-  background-image: linear-gradient(to top, #D6E4F0 0%, #e7f0fd 100%);
+  background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }
 
 .feed {
   grid-row: 6/7;
   grid-column: 1/6;
+  border-right: 3px solid black;
 }
 
 .toppaneleft {
   background-color: #163172;
   grid-row: 1/1;
   grid-column: 1/6;
-  border-right: 3px solid white;
+  border-right: 3px solid black;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 
-  background-image: linear-gradient(to top, #1E56A0 0%, #330867 100%);
-
+  background-image: linear-gradient(to top, #1e56a0 0%, #330867 100%);
 }
 
 .toppaneright {
@@ -44,13 +58,13 @@
   grid-row: 1/1;
   grid-column: 6/7;
 
-  background-image: linear-gradient(to top, #1E56A0 0%, #330867 100%);
+  background-image: linear-gradient(to top, #1e56a0 0%, #330867 100%);
 }
 
 .usersText {
   margin-top: 40px;
   text-align: center;
-  color: #F6F6F6;
+  color: #f6f6f6;
 }
 
 .usersList {
@@ -58,11 +72,12 @@
   text-align: center;
   padding: 8px;
   vertical-align: baseline;
-  background-image: linear-gradient(#FEFEFE, #eee);
+  background-image: linear-gradient(#fefefe, #eee);
   margin: 0;
 }
 
-.loginButton, .signUpButton {
+.loginButton,
+.signUpButton {
   background-color: whitesmoke;
   padding: 8px;
   margin-right: 15px;
@@ -75,7 +90,7 @@
   padding: 8px;
   margin-right: 15px;
   margin-top: 10px;
-  width: 62px
+  width: 62px;
 }
 
 .inputPassword {
@@ -84,10 +99,10 @@
   margin-right: 15px;
   margin-top: 10px;
   width: 62px;
-
 }
 
-.inputsLoginPassword, .inputsUsernameSignUp {
+.inputsLoginPassword,
+.inputsUsernameSignUp {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -96,13 +111,14 @@
 .chatMessages {
   grid-row: 6/2;
   grid-column: 1/6;
-  margin-top: 10px;
+  border-right: 3px solid black;
 }
 
 .name {
   border-radius: 10px 0px 0px 10px;
   margin: 0px 0px 0px 15px;
   padding: 5px 0px 5px 10px;
+  padding: 10px;
   color: #2e7bbe;
   background-color: #f0f0f0;
 }
@@ -111,23 +127,35 @@
   border-radius: 0px 10px 10px 0px;
   padding: 5px 10px 5px 15px;
   background-color: #f0f0f0;
+  width: 100%;
 }
 
 .messagesList {
   list-style-type: none;
   margin: 0px 0px 0px -40px;
 }
-
+ul {
+  padding-left: 0;
+}
 .liMessage {
-  padding: 15px 0px 0px 0px;
+  padding: 15px;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.liMessage:hover {
+  background-color: gray;
 }
 
 .removeButton {
-  border-radius: 7px 7px 7px 7px;
-  margin: 0px 0px 0px 15px;
-  padding: 2px 2px 2px 2px;
-  font-size: 9px;
-  width: 37px;
-  height: 16px;
+  border-radius: 6px;
+  margin: 10px;
+  margin-right: 0;
 }
-
+.msgTime {
+  font-size: 10px;
+  color: gray;
+}

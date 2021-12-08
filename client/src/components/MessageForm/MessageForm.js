@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
+import { socket } from '../../soketti';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
@@ -17,6 +18,10 @@ const MessageForm = () => {
     const userName = JSON.parse(localStorage.getItem('user'));
 
     createMessage({ message, userName: userName.userName });
+    socket.emit('message', { message });
+    // socket.on('message', function (msg) {
+    //   console.log('message' + JSON.stringify(msg));
+    // });
     // Tyhjennä tekstikenttä lähettämisen jälkeen
     e.target.reset();
     setMessage('');

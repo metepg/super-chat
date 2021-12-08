@@ -45,7 +45,14 @@ const LoginSignup = ({ action, type }) => {
         value={password}
       />
       <button
-        style={type === 'signup' ? { background: '#94a0ff' } : null}
+        style={
+          type === 'signup'
+            ? {
+                background: 'linear-gradient(to top, #00bfff, #94a0ff',
+                color: 'white',
+              }
+            : null
+        }
         type="submit"
       >
         {type}
