@@ -41,6 +41,10 @@ function App() {
       {isAuthenticated ? (
         <>
           <button
+            style={{
+              backgroundColor: 'whitesmoke',
+              marginLeft: '10%',
+            }}
             onClick={() => {
               // eslint-disable-next-line no-restricted-globals
               const logout = confirm('Want to logout?');
