@@ -24,7 +24,7 @@ function App() {
     const userData = await validateLogin(name, password);
     console.log(userData);
     if (!userData) return;
-    const obg = { userName: userData.id, token: userData.token };
+    const obg = { userName: name, token: userData.token };
     localStorage.setItem('user', JSON.stringify(obg));
     setIsAuthenticated(true);
   }
