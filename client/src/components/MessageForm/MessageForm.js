@@ -16,7 +16,6 @@ const MessageForm = () => {
       return;
     }
     const userName = JSON.parse(localStorage.getItem('user'));
-
     createMessage({ message, userName: userName.userName });
     socket.emit('message', { message });
     // socket.on('message', function (msg) {
