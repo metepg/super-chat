@@ -1,15 +1,13 @@
 import MessageFeed from '../MessageFeed/MessageFeed';
 import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
-import { socket } from '../../soketti';
+import socket from '../../soketti';
 
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
-  console.log('hep');
 
   useEffect(() => {
     socket.on('message', function (messages) {
-      socket.emit('jeoeps');
       // TODO: Tämä mappaussetti vois olla omassa tiedostossaan
       const je = messages.map((message) => {
         const time = new Date(message.messageTime)
@@ -26,7 +24,7 @@ const ChatBox = () => {
       console.log(je);
       setList(je);
     });
-  }, [list]);
+  }, []);
 
   function handleRemove(id) {
     const newList = list.filter((item) => item.id !== id);

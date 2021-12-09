@@ -10,8 +10,8 @@ router.post("/", async (req, res) => {
     userName,
   });
   try {
-    const savedMessage = await saveMessage.save();
-    res.status(200).json(savedMessage);
+    // const savedMessage = await saveMessage.save();
+    res.status(200).json({ msg: "ok" });
   } catch (error) {
     console.log(error);
   }

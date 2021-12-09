@@ -23,8 +23,17 @@ io.on("connection", async (socket) => {
     // Handle this error properly.
     console.error(err);
   }
-  socket.on("message", async (msg) => {
+  socket.on("message", async (recievedMsg) => {
+    console.log("jpes", recievedMsg);
+    const date = Date.now();
+    const { message, userName } = recievedMsg;
+    const saveMessage = new Message({
+      message,
+      messageTime: date,
+      userName,
+    });
     try {
+      await saveMessage.save();
       const messages = await Message.find({});
       io.emit("message", messages);
     } catch (err) {

@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
-import { socket } from '../../soketti';
+import socket from '../../soketti';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
   // setMessage = asettaa inputille arvon kun kenttään kirjoitetaan
   const [message, setMessage] = useState('');
 
-  socket.on('message', (messages) => {
-    console.log(messages);
-  });
   function validate(e) {
     // e.preventDefault estää sivun päivittymisen (default toiminto 90 luvulta kun lomakkeilla lähetettiin dataa)
     e.preventDefault();
@@ -19,14 +16,10 @@ const MessageForm = () => {
     if (!message) {
       return;
     }
-    const userName = JSON.parse(localStorage.getItem('user'));
-    const msg2 = { message, userName: userName.userName };
-    createMessage({ message, userName: userName.userName });
-    socket.emit('message', msg2);
-    // socket.on('message', function (msg) {
-    //   console.log('message' + JSON.stringify(msg));
-    // });
-    // Tyhjennä tekstikenttä lähettämisen jälkeen
+    const { userName } = JSON.parse(localStorage.getItem('user'));
+    const msgData = { message, userName };
+    createMessage(msgData);
+    socket.emit('message', msgData);
     e.target.reset();
     setMessage('');
   }
