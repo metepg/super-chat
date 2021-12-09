@@ -9,6 +9,7 @@ const ChatBox = () => {
 
   useEffect(() => {
     socket.on('message', function (messages) {
+      socket.emit('jeoeps');
       // TODO: Tämä mappaussetti vois olla omassa tiedostossaan
       const je = messages.map((message) => {
         const time = new Date(message.messageTime)

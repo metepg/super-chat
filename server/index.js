@@ -23,6 +23,19 @@ io.on("connection", async (socket) => {
     // Handle this error properly.
     console.error(err);
   }
+  socket.on("message", async (msg) => {
+    try {
+      const messages = await Message.find({});
+      io.emit("message", messages);
+    } catch (err) {
+      // Handle this error properly.
+      console.error(err);
+    }
+  });
+});
+
+io.on("message", (socket) => {
+  console.log("vittu", socket);
 });
 
 http.listen(4000, function () {
