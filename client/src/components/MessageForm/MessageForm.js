@@ -7,6 +7,10 @@ const MessageForm = () => {
   // message = inputin sen hetkinen arvo
   // setMessage = asettaa inputille arvon kun kenttään kirjoitetaan
   const [message, setMessage] = useState('');
+
+  socket.on('message', (messages) => {
+    console.log(messages);
+  });
   function validate(e) {
     // e.preventDefault estää sivun päivittymisen (default toiminto 90 luvulta kun lomakkeilla lähetettiin dataa)
     e.preventDefault();
@@ -16,8 +20,9 @@ const MessageForm = () => {
       return;
     }
     const userName = JSON.parse(localStorage.getItem('user'));
+    const msg2 = { message, userName: userName.userName };
     createMessage({ message, userName: userName.userName });
-    socket.emit('message', { message });
+    socket.emit('message', msg2);
     // socket.on('message', function (msg) {
     //   console.log('message' + JSON.stringify(msg));
     // });
