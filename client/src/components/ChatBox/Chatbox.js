@@ -5,9 +5,10 @@ import { socket } from '../../soketti';
 
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
+  console.log('hep');
 
   useEffect(() => {
-    socket.on('history', function (messages) {
+    socket.on('message', function (messages) {
       // TODO: Tämä mappaussetti vois olla omassa tiedostossaan
       const je = messages.map((message) => {
         const time = new Date(message.messageTime)
@@ -56,25 +57,7 @@ const ChatBox = () => {
         </ul>
       </section>
       <div className={css.toppaneleft}>
-        <div className={css.inputsUsernameSignUp}>
-          <input
-            placeholder="Username"
-            className={css.inputUsername}
-            type="text"
-            name="username"
-          />
-          <button className={css.signUpButton}>Sign Up</button>
-        </div>
-
-        <div className={css.inputsLoginPassword}>
-          <input
-            placeholder="Password"
-            className={css.inputPassword}
-            type="text"
-            name="password"
-          />
-          <button className={css.loginButton}>Login</button>
-        </div>
+        <div className={css.inputsUsernameSignUp}></div>
       </div>
       <div className={css.toppaneright}>
         <h1 className={css.usersText}>users</h1>
