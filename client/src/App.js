@@ -33,7 +33,6 @@ function App() {
     const userData = await validateSignup(name, password);
     if (!userData) return;
     alert(`Created user ${userData.name}`);
-    setIsAuthenticated(true);
   }
 
   return (

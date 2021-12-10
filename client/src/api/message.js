@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:3001/api/message';
+const URL = '/api/message';
 
 export const createMessage = (data) => axios.post(URL, data);

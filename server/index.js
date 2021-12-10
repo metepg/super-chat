@@ -8,12 +8,19 @@ const app = express();
 const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, { cors: true });
+
+const server = app.listen(PORT, () => {
+  console.log("Listening on port: " + PORT);
+});
+
+const io = require("socket.io")(server, {
+  cors: true,
+});
 
 // Middlewaret
 app.use(express.json());
 app.use(cors());
+app.use(express.static("build"));
 
 io.on("connection", async (socket) => {
   try {
@@ -24,7 +31,6 @@ io.on("connection", async (socket) => {
     console.error(err);
   }
   socket.on("message", async (recievedMsg) => {
-    console.log("jpes", recievedMsg);
     const date = Date.now();
     const { message, userName } = recievedMsg;
     const saveMessage = new Message({
@@ -43,14 +49,6 @@ io.on("connection", async (socket) => {
   });
 });
 
-io.on("message", (socket) => {
-  console.log("vittu", socket);
-});
-
-http.listen(4000, function () {
-  console.log("HTTP LISTENING PORT 4000");
-});
-
 // Koodi
 // Tämä reitti hoitaa signupin ja loginit
 app.use("/auth", authRoute);
@@ -62,5 +60,3 @@ app.use("/api/message", messRoute);
 // res oliolla voi lähettää pingaajalle vastauksen json muodossa esim res.json({message: 'hyvin menee'})
 // voi myös lähettää status codeja (suositeltavaa) kuten 404 tai 200 esim res.status(400).json({ error: 'message' })
 // status codet on hyödyllisiä debugatessa
-
-app.listen(PORT, () => console.log(`SUPER CHAT RUNNING ON PORT ${PORT}`));
