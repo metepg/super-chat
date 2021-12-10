@@ -33,6 +33,22 @@ const ChatBox = () => {
     socket.emit('delete-message', id);
   }
 
+  const RemoveButton = (item) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.userName === item.item.userName) {
+      return (
+        <button
+          className={css.removeButton}
+          type="button"
+          onClick={() => handleRemove(item.item.id)}
+        >
+          Remove
+        </button>
+      );
+    }
+    return null;
+  };
+
   return (
     <section className={css.controller}>
       <section className={css.superController}>
@@ -45,13 +61,7 @@ const ChatBox = () => {
               </p>
               <div className={css.flexController}>
                 <p className={css.teksti}>{item.message}</p>
-                <button
-                  className={css.removeButton}
-                  type="button"
-                  onClick={() => handleRemove(item.id)}
-                >
-                  Remove
-                </button>
+                <RemoveButton item={item} />
               </div>
             </li>
           ))}

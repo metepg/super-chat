@@ -151,7 +151,7 @@ ul {
 }
 
 .removeButton {
-  border-radius: 6px;
+  background-color: whitesmoke;
   margin: 10px;
   margin-right: 0;
 }

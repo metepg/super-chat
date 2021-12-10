@@ -17,6 +17,7 @@ app.use(cors());
 
 io.on("connection", async (socket) => {
   try {
+    console.log("user connected");
     const findAllMessages = await Message.find({});
     socket.emit("message", findAllMessages);
   } catch (err) {
