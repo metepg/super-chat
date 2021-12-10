@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: true });
-
+const UserCount = require("./models/userCount");
 // Middlewaret
 app.use(express.json());
 app.use(cors());
@@ -20,9 +20,16 @@ io.on("connection", async (socket) => {
     console.log("user connected");
     const findAllMessages = await Message.find({});
     socket.emit("message", findAllMessages);
+    new UserCount().save();
+    io.emit("user-connection", await UserCount.find({}));
   } catch (err) {
     console.error(err);
   }
+  socket.on("disconnect", async () => {
+    await UserCount.deleteOne({});
+    console.log("user disconnected");
+    io.emit("user-connection", await UserCount.find({}));
+  });
 
   socket.on("message", async (receivedMsg) => {
     console.log("message: ", receivedMsg);
@@ -52,7 +59,7 @@ io.on("connection", async (socket) => {
 });
 
 io.on("message", (socket) => {
-  console.log("vittu", socket);
+  console.log(socket);
 });
 
 http.listen(4000, function () {

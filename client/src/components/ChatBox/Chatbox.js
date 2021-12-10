@@ -3,29 +3,18 @@ import RemoveButton from '../RemoveButton/RemoveButton';
 import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
+import mapMessageTime from '../../api/mapMessageTime';
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
-
+  const [users, setUsers] = React.useState();
   useEffect(() => {
     socket.on('message', function (messages) {
-      // TODO: Tämä mappaussetti vois olla omassa tiedostossaan
-      const je = messages.map((message) => {
-        const time = new Date(message.messageTime)
-          .toLocaleString('en-GB')
-          .split(',');
-        const today = new Date(Date.now()).toLocaleString('en-GB').split(',');
-        let msgTime;
-        if (time[0] === today[0]) msgTime = `Today at ${time[1]}`;
-        return {
-          ...message,
-          messageTime: msgTime ?? `${time[0]} at ${time[1]}`,
-        };
-      });
-      console.log(je);
-      setList(je);
+      setList(mapMessageTime(messages));
+    });
+    socket.on('user-connection', function (userCount) {
+      setUsers(userCount.length);
     });
   }, []);
-
   return (
     <section className={css.controller}>
       <section className={css.superController}>
@@ -48,12 +37,11 @@ const ChatBox = () => {
         <div className={css.inputsUsernameSignUp}></div>
       </div>
       <div className={css.toppaneright}>
-        <h1 className={css.usersText}>users</h1>
+        <h1 className={css.usersText}>Users online</h1>
       </div>
-
       <aside className={css.aside}>
         <ul className={css.usersList}>
-          <li>user_1</li>
+          <li>{users}</li>
         </ul>
       </aside>
       <div className={css.feed}>
