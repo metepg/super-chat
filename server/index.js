@@ -17,16 +17,17 @@ app.use(cors());
 
 io.on("connection", async (socket) => {
   try {
-    const messages = await Message.find({});
-    socket.emit("message", messages);
+    console.log("user connected");
+    const findAllMessages = await Message.find({});
+    socket.emit("message", findAllMessages);
   } catch (err) {
-    // Handle this error properly.
     console.error(err);
   }
-  socket.on("message", async (recievedMsg) => {
-    console.log("jpes", recievedMsg);
+
+  socket.on("message", async (receivedMsg) => {
+    console.log("message: ", receivedMsg);
     const date = Date.now();
-    const { message, userName } = recievedMsg;
+    const { message, userName } = receivedMsg;
     const saveMessage = new Message({
       message,
       messageTime: date,
@@ -34,10 +35,17 @@ io.on("connection", async (socket) => {
     });
     try {
       await saveMessage.save();
-      const messages = await Message.find({});
-      io.emit("message", messages);
+      io.emit("message", await Message.find({}));
     } catch (err) {
-      // Handle this error properly.
+      console.error(err);
+    }
+  });
+  socket.on("delete-message", async (receivedMsg) => {
+    console.log("delete-message: ", receivedMsg);
+    try {
+      await Message.deleteOne({ _id: receivedMsg });
+      socket.emit("message", await Message.find({}));
+    } catch (err) {
       console.error(err);
     }
   });

@@ -1,8 +1,8 @@
 import MessageFeed from '../MessageFeed/MessageFeed';
+import RemoveButton from '../RemoveButton/RemoveButton';
 import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
-
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
 
@@ -26,11 +26,6 @@ const ChatBox = () => {
     });
   }, []);
 
-  function handleRemove(id) {
-    const newList = list.filter((item) => item.id !== id);
-    setList(newList);
-  }
-
   return (
     <section className={css.controller}>
       <section className={css.superController}>
@@ -43,13 +38,7 @@ const ChatBox = () => {
               </p>
               <div className={css.flexController}>
                 <p className={css.teksti}>{item.message}</p>
-                <button
-                  className={css.removeButton}
-                  type="button"
-                  onClick={() => handleRemove(item.id)}
-                >
-                  Remove
-                </button>
+                <RemoveButton item={item} />
               </div>
             </li>
           ))}

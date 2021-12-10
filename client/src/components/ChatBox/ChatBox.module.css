@@ -150,11 +150,6 @@ ul {
   background-color: gray;
 }
 
-.removeButton {
-  border-radius: 6px;
-  margin: 10px;
-  margin-right: 0;
-}
 .msgTime {
   font-size: 10px;
   color: gray;
