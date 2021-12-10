@@ -6,13 +6,15 @@ import socket from '../../soketti';
 import mapMessageTime from '../../api/mapMessageTime';
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
-
+  const [users, setUsers] = React.useState();
   useEffect(() => {
     socket.on('message', function (messages) {
       setList(mapMessageTime(messages));
     });
+    socket.on('user-connection', function (userCount) {
+      setUsers(userCount.length);
+    });
   }, []);
-
   return (
     <section className={css.controller}>
       <section className={css.superController}>
@@ -35,12 +37,11 @@ const ChatBox = () => {
         <div className={css.inputsUsernameSignUp}></div>
       </div>
       <div className={css.toppaneright}>
-        <h1 className={css.usersText}>users</h1>
+        <h1 className={css.usersText}>Users online</h1>
       </div>
-
       <aside className={css.aside}>
         <ul className={css.usersList}>
-          <li>user_1</li>
+          <li>{users}</li>
         </ul>
       </aside>
       <div className={css.feed}>

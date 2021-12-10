@@ -1,6 +1,5 @@
 const mapMessageTime = (messages) =>
   messages.map((message) => {
-    console.log(message.messageTime);
     const time = new Date(message.messageTime)
       .toLocaleString('en-GB')
       .split(',');
