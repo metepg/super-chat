@@ -1,8 +1,8 @@
 import MessageFeed from '../MessageFeed/MessageFeed';
+import RemoveButton from '../RemoveButton/RemoveButton';
 import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
-
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
 
@@ -25,29 +25,6 @@ const ChatBox = () => {
       setList(je);
     });
   }, []);
-
-  function handleRemove(id) {
-    //Vanha frontend-ratkaisu, ei enää tarpeellinen.
-    /* const newList = list.filter((item) => item.id !== id);
-    setList(newList);*/
-    socket.emit('delete-message', id);
-  }
-
-  const RemoveButton = (item) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user.userName === item.item.userName) {
-      return (
-        <button
-          className={css.removeButton}
-          type="button"
-          onClick={() => handleRemove(item.item.id)}
-        >
-          Remove
-        </button>
-      );
-    }
-    return null;
-  };
 
   return (
     <section className={css.controller}>
