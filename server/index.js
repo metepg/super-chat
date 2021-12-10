@@ -17,6 +17,7 @@ const io = require("socket.io")(server, {
   cors: true,
 });
 
+const UserCount = require("./models/userCount");
 // Middlewaret
 app.use(express.json());
 app.use(cors());
@@ -24,15 +25,24 @@ app.use(express.static("build"));
 
 io.on("connection", async (socket) => {
   try {
-    const messages = await Message.find({});
-    socket.emit("message", messages);
+    console.log("user connected");
+    const findAllMessages = await Message.find({});
+    socket.emit("message", findAllMessages);
+    new UserCount().save();
+    io.emit("user-connection", await UserCount.find({}));
   } catch (err) {
-    // Handle this error properly.
     console.error(err);
   }
-  socket.on("message", async (recievedMsg) => {
+  socket.on("disconnect", async () => {
+    await UserCount.deleteOne({});
+    console.log("user disconnected");
+    io.emit("user-connection", await UserCount.find({}));
+  });
+
+  socket.on("message", async (receivedMsg) => {
+    console.log("message: ", receivedMsg);
     const date = Date.now();
-    const { message, userName } = recievedMsg;
+    const { message, userName } = receivedMsg;
     const saveMessage = new Message({
       message,
       messageTime: date,
@@ -40,13 +50,24 @@ io.on("connection", async (socket) => {
     });
     try {
       await saveMessage.save();
-      const messages = await Message.find({});
-      io.emit("message", messages);
+      io.emit("message", await Message.find({}));
     } catch (err) {
-      // Handle this error properly.
       console.error(err);
     }
   });
+  socket.on("delete-message", async (receivedMsg) => {
+    console.log("delete-message: ", receivedMsg);
+    try {
+      await Message.deleteOne({ _id: receivedMsg });
+      socket.emit("message", await Message.find({}));
+    } catch (err) {
+      console.error(err);
+    }
+  });
+});
+
+io.on("message", (socket) => {
+  console.log(socket);
 });
 
 // Koodi
