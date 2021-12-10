@@ -27,8 +27,10 @@ const ChatBox = () => {
   }, []);
 
   function handleRemove(id) {
-    const newList = list.filter((item) => item.id !== id);
-    setList(newList);
+    //Vanha frontend-ratkaisu, ei enää tarpeellinen.
+    /* const newList = list.filter((item) => item.id !== id);
+    setList(newList);*/
+    socket.emit('delete-message', id);
   }
 
   return (
