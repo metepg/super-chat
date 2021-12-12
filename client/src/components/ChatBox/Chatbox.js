@@ -8,10 +8,10 @@ const ChatBox = () => {
   const [list, setList] = React.useState([]);
   const [users, setUsers] = React.useState();
   useEffect(() => {
-    socket.on('message', function (messages) {
+    socket.on('message', async function (messages) {
       setList(mapMessageTime(messages));
     });
-    socket.on('user-connection', function (userCount) {
+    socket.on('usersList', async function (userCount) {
       setUsers(userCount.length);
     });
   }, []);
