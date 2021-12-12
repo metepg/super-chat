@@ -22,18 +22,22 @@ function App() {
 
   async function loginUser(name, password) {
     const userData = await validateLogin(name, password);
-    console.log(userData);
     if (!userData) return;
-    const obg = { userName: name, token: userData.token };
-    localStorage.setItem('user', JSON.stringify(obg));
-    setIsAuthenticated(true);
+    await refreshPage(name, userData);
   }
 
   async function signupUser(name, password) {
     const userData = await validateSignup(name, password);
     if (!userData) return;
     alert(`Created user ${userData.name}`);
+    await refreshPage(name, userData);
+  }
+
+  async function refreshPage(name, userData) {
+    const obg = { userName: name, token: userData.token };
+    localStorage.setItem('user', JSON.stringify(obg));
     setIsAuthenticated(true);
+    window.location.reload();
   }
 
   return (
