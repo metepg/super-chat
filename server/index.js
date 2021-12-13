@@ -11,6 +11,7 @@ const messRoute = require("./routes/message");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: true });
 const UserCount = require("./models/userCount");
+const dbCleanup = require("./utils/dbCleanup");
 // Middlewaret
 app.use(express.json());
 app.use(cors());
@@ -18,30 +19,9 @@ app.use(cors());
 let userArray = [];
 
 setInterval(() => {
-  console.log("CleanupRoutine");
-
-  let deleteArray = [];
-  UserCount.find({}, async function (err, docs) {
-    try {
-      for (let i = 0; i < docs.length; i++) {
-        const finder = userArray.find((e) => (e = docs[i].userName));
-        console.log("finder: " + finder);
-        if (!finder) {
-          deleteArray.push(docs[i].userName);
-          console.log("deleteArray: " + deleteArray);
-        }
-      }
-      for (let i = 0; i < deleteArray.length; i++) {
-        UserCount.deleteOne({ userName: deleteArray[i] }, async function () {
-          console.log("Deleted user: " + deleteArray[i]);
-        });
-      }
-      userArray = [];
-    } catch (err) {
-      console.error("err" + err);
-    }
-  });
-}, 100000);
+  dbCleanup(userArray);
+  userArray = [];
+}, 120000);
 
 io.on("connection", async (socket) => {
   try {
@@ -122,10 +102,6 @@ io.on("connection", async (socket) => {
       console.error(err);
     }
   });
-});
-
-io.on("message", (socket) => {
-  console.log(socket);
 });
 
 http.listen(4000, function () {

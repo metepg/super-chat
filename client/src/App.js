@@ -10,12 +10,12 @@ import {
 import socket from './soketti';
 function App() {
   function resetTimer() {
-    localStorage.setItem('expireTime', Date.now() + 10000);
+    localStorage.setItem('expireTime', Date.now() + 100000);
   }
 
   setInterval(() => {
     timedLogout();
-  }, 10000);
+  }, 100000);
 
   setInterval(() => {
     if (localStorage.getItem('user')) {
@@ -26,7 +26,7 @@ function App() {
         alert(err);
       }
     }
-  }, 5000);
+  }, 10000);
 
   const handleMouseMove = () => {
     resetTimer();
