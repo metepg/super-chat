@@ -41,12 +41,12 @@ const MessageForm = () => {
     <form onSubmit={(e) => validate(e)}>
       <div className={css.container}>
         <InputEmoji
+            style={{ color: 'red' }}
             className={css.inputEmoji}
             pattern="^.{1,80}$"
             title="Max 80 characters."
             maxLength="80"
             required="required"
-            className={css.inputChat}
             placeholder="Type a message"
             onChange={setMessage}
             cleanOnEnter
