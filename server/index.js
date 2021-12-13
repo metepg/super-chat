@@ -15,24 +15,78 @@ const UserCount = require("./models/userCount");
 app.use(express.json());
 app.use(cors());
 
+let userArray = [];
+
+setInterval(() => {
+  console.log("CleanupRoutine");
+
+  let deleteArray = [];
+  UserCount.find({}, async function (err, docs) {
+    try {
+      for (let i = 0; i < docs.length; i++) {
+        const finder = userArray.find((e) => (e = docs[i].userName));
+        console.log("finder: " + finder);
+        if (!finder) {
+          deleteArray.push(docs[i].userName);
+          console.log("deleteArray: " + deleteArray);
+        }
+      }
+      for (let i = 0; i < deleteArray.length; i++) {
+        UserCount.deleteOne({ userName: deleteArray[i] }, async function () {
+          console.log("Deleted user: " + deleteArray[i]);
+        });
+      }
+      userArray = [];
+    } catch (err) {
+      console.error("err" + err);
+    }
+  });
+}, 100000);
+
 io.on("connection", async (socket) => {
   try {
     console.log("user connected");
     const findAllMessages = await Message.find({});
     socket.emit("message", findAllMessages);
-    new UserCount().save();
-    io.emit("user-connection", await UserCount.find({}));
+    io.emit("usersList", await UserCount.find({}));
   } catch (err) {
     console.error(err);
   }
   socket.on("disconnect", async () => {
-    await UserCount.deleteOne({});
     console.log("user disconnected");
-    io.emit("user-connection", await UserCount.find({}));
+    io.emit("usersList", await UserCount.find({}));
+  });
+  socket.on("user-disconnect", async (user) => {
+    console.log("user-disconnect: " + user);
+    try {
+      await UserCount.deleteOne({ userName: user });
+      io.emit("usersList", await UserCount.find({}));
+    } catch (err) {
+      console.error(err);
+    }
+  });
+  socket.on("user-connection", async (user) => {
+    saveUser(user);
+    io.emit("usersList", await UserCount.find({}));
   });
 
+  function saveUser(user) {
+    const userName = new UserCount({ userName: user });
+    try {
+      UserCount.find({ userName: user }, async function (err, docs) {
+        if (err) {
+          console.error(err);
+        } else {
+          if (docs.length === 0) {
+            await userName.save();
+          }
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   socket.on("message", async (receivedMsg) => {
-    console.log("message: ", receivedMsg);
     const date = Date.now();
     const { message, userName } = receivedMsg;
     const saveMessage = new Message({
@@ -43,6 +97,8 @@ io.on("connection", async (socket) => {
     try {
       await saveMessage.save();
       io.emit("message", await Message.find({}));
+      saveUser(receivedMsg.userName);
+      io.emit("usersList", await UserCount.find({}));
     } catch (err) {
       console.error(err);
     }
@@ -52,6 +108,16 @@ io.on("connection", async (socket) => {
     try {
       await Message.deleteOne({ _id: receivedMsg });
       socket.emit("message", await Message.find({}));
+    } catch (err) {
+      console.error(err);
+    }
+  });
+  socket.on("online", async (user) => {
+    try {
+      if (userArray.find((e) => (e = user)) !== user) {
+        userArray.push(user);
+        console.log("Online user: " + user);
+      }
     } catch (err) {
       console.error(err);
     }
