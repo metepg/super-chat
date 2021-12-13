@@ -7,6 +7,7 @@ import {
   validateLogin,
   validateSignup,
 } from './components/utils/authentication';
+import socket from './soketti';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -17,6 +18,7 @@ function App() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user?.token) {
       setIsAuthenticated(true);
+      socket.emit('send-user', user?.userName);
     }
   }, []);
 
@@ -27,6 +29,7 @@ function App() {
     const obg = { userName: name, token: userData.token };
     localStorage.setItem('user', JSON.stringify(obg));
     setIsAuthenticated(true);
+    socket.emit('send-user', name);
   }
 
   async function signupUser(name, password) {
@@ -34,6 +37,7 @@ function App() {
     if (!userData) return;
     alert(`Created user ${userData.name}`);
     setIsAuthenticated(true);
+    socket.emit('send-user', name);
   }
 
   return (

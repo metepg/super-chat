@@ -4,9 +4,13 @@ import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
 import mapMessageTime from '../../api/mapMessageTime';
+
 const ChatBox = () => {
+
   const [list, setList] = React.useState([]);
   const [users, setUsers] = React.useState();
+  const [listUsers, setListUsers] = React.useState([]);
+
   useEffect(() => {
     socket.on('message', function (messages) {
       setList(mapMessageTime(messages));
@@ -14,7 +18,11 @@ const ChatBox = () => {
     socket.on('user-connection', function (userCount) {
       setUsers(userCount.length);
     });
+    socket.on('updateUsersList', function (users) {
+      setListUsers(users);
+    });
   }, []);
+
   return (
     <section className={css.controller}>
       <section className={css.superController}>
@@ -38,10 +46,15 @@ const ChatBox = () => {
       </div>
       <div className={css.toppaneright}>
         <h1 className={css.usersText}>Users online</h1>
+        <div className={css.count}>User count: <div>{users}</div></div>
       </div>
       <aside className={css.aside}>
         <ul className={css.usersList}>
-          <li>{users}</li>
+          <div>
+            {listUsers.map((names, i) => {
+              return <p key={i}>{names}</p>;
+            })}
+          </div>
         </ul>
       </aside>
       <div className={css.feed}>

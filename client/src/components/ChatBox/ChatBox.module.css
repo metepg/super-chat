@@ -68,6 +68,15 @@
   margin: 0;
 }
 
+.count {
+  list-style: none;
+  text-align: center;
+  padding: 8px;
+  vertical-align: baseline;
+  background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
+  margin: 0;
+}
+
 .loginButton,
 .signUpButton {
   background-color: whitesmoke;

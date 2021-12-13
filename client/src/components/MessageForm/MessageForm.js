@@ -20,6 +20,7 @@ const MessageForm = () => {
     const msgData = { message, userName };
     createMessage(msgData);
     socket.emit('message', msgData);
+    socket.emit('send-message', message);
     e.target.reset();
     setMessage('');
   }

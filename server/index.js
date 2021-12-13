@@ -2,21 +2,58 @@ require("dotenv").config();
 require("./utils/db");
 const Message = require("./models/message");
 // Importit
+const {Users} = require('./utils/users');
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
 const messRoute = require("./routes/message");
+
+let users = new Users();
 const http = require("http").createServer(app);
-const io = require("socket.io")(http, { cors: true });
+const { instrument } = require("@socket.io/admin-ui");
+// server-side
+const io = require("socket.io")(http, {
+  cors: {
+    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    methods: ["GET", "POST"],
+  }
+});
+
+io.on('connection', socket => {
+  console.log('socket id: ' + socket.id)
+  io.on("send-message", (message) => {
+    console.log(message)
+  })
+})
+
+io.on('custom-event',(number, string, obj) => {
+  console.log(number + string + obj);
+})
+
 const UserCount = require("./models/userCount");
+
 // Middlewaret
 app.use(express.json());
 app.use(cors());
 
+
 io.on("connection", async (socket) => {
   try {
+    io.emit('updateUsersList', users.getUserList());
+
+    socket.on("send-user", (user) => {
+      console.log("User (addUser): " + users.addUser(socket.id, user).name);
+      users.addUser(socket.id, user);
+      console.log("User (addUser): " + users.addUser(socket.id, user));
+      console.log("User (userListin 1. arvo): " + users.getUserList()[0]);
+    })
+
+    socket.on("send-message", (message) => {
+      console.log("Message: " + message);
+    })
+
     console.log("user connected");
     const findAllMessages = await Message.find({});
     socket.emit("message", findAllMessages);
@@ -26,10 +63,25 @@ io.on("connection", async (socket) => {
     console.error(err);
   }
   socket.on("disconnect", async () => {
+
+    console.log("User (removeUser): " + users.removeUser(socket.id));
+    users.removeUser(socket.id);
+    console.log("User (removeUser): " + users.removeUser(socket.id));
+
+    let user = users.removeUser(socket.id);
+    if(user) {
+      io.emit('updateUsersList', users.getUserList());
+    }
     await UserCount.deleteOne({});
     console.log("user disconnected");
     io.emit("user-connection", await UserCount.find({}));
   });
+
+  //await socket.on("disconnect", (user) => {
+  //  console.log("User disconnect (1): " + users.removeUser(user));
+  //  users.removeUser(user);
+  //  console.log("User disconnect (2): " + users.removeUser(user));
+  //})
 
   socket.on("message", async (receivedMsg) => {
     console.log("message: ", receivedMsg);
@@ -79,3 +131,7 @@ app.use("/api/message", messRoute);
 // status codet on hyödyllisiä debugatessa
 
 app.listen(PORT, () => console.log(`SUPER CHAT RUNNING ON PORT ${PORT}`));
+
+instrument(io, {
+  auth: false
+});
