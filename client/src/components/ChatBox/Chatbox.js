@@ -4,6 +4,7 @@ import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
 import mapMessageTime from '../../api/mapMessageTime';
+import Linkify from 'linkify-react';
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
   const [usercount, setUsercount] = React.useState();
@@ -29,7 +30,8 @@ const ChatBox = () => {
                 <span className={css.msgTime}>{item.messageTime}</span>
               </p>
               <div className={css.flexController}>
-                <p className={css.teksti}>{item.message}</p>
+                <Linkify><p className={css.teksti}>
+                  {item.message}</p></Linkify>
                 <RemoveButton item={item} />
               </div>
             </li>
