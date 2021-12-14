@@ -21,4 +21,4 @@ Aseta .env tiedostoon seuraavat muuttujat:
 (Muut kutsut hoidetaan socket.io:n sisällä)
 
 # LIVE DEMO
-https://super-chat-live.herokuapp.com/
+https://supah-chat-live.herokuapp.com/
