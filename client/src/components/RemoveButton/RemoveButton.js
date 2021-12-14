@@ -4,7 +4,7 @@ import css from './RemoveButton.module.css';
  * Poistonappula, mikä näkyy vain viestin lähettäjälle.
  * Poistaa viestin sekä tietokannasta että frontista.
  * @author Nicklas Sundell, Mete Güneysel, Erik Holopainen
- * @param {*} item
+ * @param item viestin id
  * @returns Viestin poistonappula
  */
 const RemoveButton = (item) => {

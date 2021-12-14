@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
 import './style.css';
 import socket from '../../soketti';
 import InputEmoji from 'react-input-emoji';
 
+/**
+ * Chatsovelluksen viestit lähetetään lomakkeella
+ * Tässä on se lomake
+ *
+ * @author Mete Güneysel
+ */
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
   // setMessage = asettaa inputille arvon kun kenttään kirjoitetaan
@@ -20,7 +25,6 @@ const MessageForm = () => {
     }
     const { userName } = JSON.parse(localStorage.getItem('user'));
     const msgData = { message, userName };
-    createMessage(msgData);
     socket.emit('message', msgData);
     e.target.reset();
     setMessage('');
@@ -33,7 +37,6 @@ const MessageForm = () => {
     }
     const { userName } = JSON.parse(localStorage.getItem('user'));
     const msgData = { message, userName };
-    createMessage(msgData);
     socket.emit('message', msgData);
     setMessage('');
   }

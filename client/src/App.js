@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import Header from './components/Header/Header';
 import ChatBox from './components/ChatBox/Chatbox';
 import LoginSignup from './components/LoginSignup/LoginSignup';
@@ -55,7 +54,7 @@ function App() {
   }
   /**
    * Käyttäjän logout-funktio, tyhjentää localstoragen yms.
-   * @author Nicklas Sundell
+   * @author Nicklas Sundell, Mete Güneysel
    */
   function logout() {
     try {

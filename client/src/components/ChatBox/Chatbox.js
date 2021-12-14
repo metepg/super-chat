@@ -3,7 +3,7 @@ import RemoveButton from '../RemoveButton/RemoveButton';
 import css from './ChatBox.module.css';
 import React, { useEffect } from 'react';
 import socket from '../../soketti';
-import mapMessageTime from '../../api/mapMessageTime';
+import mapMessageTime from '../utils/mapMessageTime';
 import Linkify from 'linkify-react';
 /**
  * Chat-ikkuna, pitää sisällään kaiken chattiin liittyvän gui:n
