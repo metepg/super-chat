@@ -1,3 +1,9 @@
+/**
+ * Tietokantaskeema käyttäjälle
+ * Poistetaan turhat mongodbn palauttamat kentät (_id. __v password) ennen frontendiin lähettämistä
+ *
+ * @author Mete Güneysel
+ */
 const mongoose = require("mongoose");
 const validator = require("mongoose-unique-validator");
 

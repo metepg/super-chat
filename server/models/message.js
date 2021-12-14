@@ -1,3 +1,10 @@
+/**
+ * Tietokantaskeema viestille
+ * Poistetaan turhat mongodbn palauttamat kentät (_id. __v) ennen frontendiin lähettämistä
+ *
+ * @author Mete Güneysel
+ */
+
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({

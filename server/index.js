@@ -1,3 +1,7 @@
+/**
+ * Palvelin jossa koko sovellus pyörii
+ * Reactilla tehty frontend tuotantoversio (build kansio) tarjotaan node palvelimelta selaimelle
+ */
 require("dotenv").config();
 require("./utils/db");
 const Message = require("./models/message");
@@ -7,7 +11,6 @@ const cors = require("cors");
 const app = express();
 const authRoute = require("./routes/auth");
 const PORT = process.env.PORT;
-const messRoute = require("./routes/message");
 
 const server = app.listen(PORT, () => {
   console.log("Listening on port: " + PORT);
@@ -122,10 +125,6 @@ io.on("connection", async (socket) => {
 // Koodi
 // Tämä reitti hoitaa signupin ja loginit
 app.use("/auth", authRoute);
-//Tämä reitti hoitaa viestien lähetyksen ja vastaanoton
-app.use("/api/message", messRoute);
-// app.use("/api/login", loginRoute);
-// Malli endpointista POST /api/message
 // req oliosta saa vastaanotettavaa tietoa esim (req.body) antaa lähetetyn jsonin oliona
 // res oliolla voi lähettää pingaajalle vastauksen json muodossa esim res.json({message: 'hyvin menee'})
 // voi myös lähettää status codeja (suositeltavaa) kuten 404 tai 200 esim res.status(400).json({ error: 'message' })
