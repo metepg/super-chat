@@ -30,7 +30,10 @@ setInterval(() => {
   dbCleanup(userArray);
   userArray = [];
 }, 120000);
-
+/**
+ * Socket-io:n viestittelyt
+ * @author Nicklas Sundell, Mete Güneysel
+ */
 io.on("connection", async (socket) => {
   try {
     console.log("user connected");
@@ -57,7 +60,11 @@ io.on("connection", async (socket) => {
     saveUser(user);
     io.emit("usersList", await UserCount.find({}));
   });
-
+  /**
+   * Tallentaa käyttäjän online-hakua varten tietokantaan
+   * @author Nicklas Sundell
+   * @param {} user
+   */
   function saveUser(user) {
     const userName = new UserCount({ userName: user });
     try {

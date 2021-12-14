@@ -5,6 +5,11 @@ import React, { useEffect } from 'react';
 import socket from '../../soketti';
 import mapMessageTime from '../../api/mapMessageTime';
 import Linkify from 'linkify-react';
+/**
+ * Chat-ikkuna, pitää sisällään kaiken chattiin liittyvän gui:n
+ * @author Erik Holopainen, Mete Güneysel, Nicklas Sundell
+ * @returns Käytännössä koko chat-guin
+ */
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
   const [usercount, setUsercount] = React.useState();
@@ -14,9 +19,14 @@ const ChatBox = () => {
       setList(mapMessageTime(messages));
     });
     socket.on('usersList', async function (userCount) {
-      //console.log(userCount);
-      setUsers(userCount);
-      setUsercount(userCount.length);
+      try {
+        const { userName } = JSON.parse(localStorage.getItem('user'));
+        if (!userCount.find((u) => (u = userName))) {
+          socket.emit('online', userName);
+        }
+        setUsers(userCount);
+        setUsercount(userCount.length);
+      } catch (err) {}
     });
   }, []);
   return (

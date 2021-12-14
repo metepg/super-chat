@@ -1,5 +1,8 @@
 const UserCount = require("../models/userCount");
-
+/**
+ * Puhdistaa tietokannan epäaktiivisista käyttäjistä
+ * @author Nicklas Sundell
+ * @param {Array} userArray, johon tietokantaa verrataan. */
 module.exports = dbCleanup = (userArray) => {
   console.log("dbCleanup");
   let deleteArray = [];

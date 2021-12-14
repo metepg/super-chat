@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("mongoose-unique-validator");
-
+/**
+ * Schema käyttäjien onlinestatuksen määrittämiseen
+ * @author Nicklas Sundell
+ */
 const schema = new mongoose.Schema({
   userName: { type: String, required: true, unique: true },
 });
