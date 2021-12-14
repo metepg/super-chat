@@ -1,3 +1,9 @@
+/**
+ * Chatboxin viestien saapumisajan muuntaminen oikeaan formaattiin
+ * @author Mete Güneysel, Nicklas Sundell
+ * @param {*} messages
+ * @returns
+ */
 const mapMessageTime = (messages) =>
   messages.map((message) => {
     const time = new Date(message.messageTime)

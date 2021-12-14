@@ -1,6 +1,12 @@
 import socket from '../../soketti';
 import css from './RemoveButton.module.css';
-
+/**
+ * Poistonappula, mikä näkyy vain viestin lähettäjälle.
+ * Poistaa viestin sekä tietokannasta että frontista.
+ * @author Nicklas Sundell, Mete Güneysel, Erik Holopainen
+ * @param {*} item
+ * @returns Viestin poistonappula
+ */
 const RemoveButton = (item) => {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user.userName === item.item.userName) {

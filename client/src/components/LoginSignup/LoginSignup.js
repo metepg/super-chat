@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import css from './LoginSignup.module.css';
+/**
+ * Input-komponentti, vähentää koodin LoginSignup-komponentissa
+ * @author Mete Güneysel, Nicklas Sundell
+ * @param {*} param0
+ * @returns {input}
+ */
 const Input = ({ setValue, placeholder, type, value }) => {
   return (
     <input
@@ -11,6 +17,12 @@ const Input = ({ setValue, placeholder, type, value }) => {
     />
   );
 };
+/**
+ * Login sivun login ja signup-komponentit
+ * @author Mete Güneysel, Nicklas Sundell
+ * @param {*} param0
+ * @returns {} Loginin tai signupin formin ja tyylit. Oletustyyli login.
+ */
 const LoginSignup = ({ action, type }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
