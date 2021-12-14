@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Header from './components/Header/Header';
 import ChatBox from './components/ChatBox/Chatbox';
 import LoginSignup from './components/LoginSignup/LoginSignup';
@@ -42,6 +43,10 @@ function App() {
   }
 
   function logout() {
+    const logout = confirm('Want to logout?');
+    if (!logout) {
+      return;
+    }
     try {
       const { userName } = JSON.parse(localStorage.getItem('user'));
       socket.emit('user-disconnect', userName);
