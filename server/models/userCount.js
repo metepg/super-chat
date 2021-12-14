@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("mongoose-unique-validator");
 
-const schema = new mongoose.Schema({});
+const schema = new mongoose.Schema({
+  userName: { type: String, required: true, unique: true },
+});
 schema.set("toJSON", {
   virtuals: true,
   transform: (document, returnedObject) => {
