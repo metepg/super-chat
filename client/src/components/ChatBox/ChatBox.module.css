@@ -12,7 +12,7 @@
 }
 
 .superController {
-  grid-row: 2/6;
+  grid-row: 2/7;
   grid-column: 1/6;
   overflow: auto;
   display: flex;
@@ -27,13 +27,13 @@
 
 .aside {
   border-left: 3px solid black;
-  grid-row: 2/7;
+  grid-row: 2/8;
   grid-column: 6/-1;
   background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }
 
 .feed {
-  grid-row: 6/7;
+  grid-row: 7/7;
   grid-column: 1/6;
 }
 

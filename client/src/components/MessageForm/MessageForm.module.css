@@ -17,7 +17,6 @@
 }
 
 @media screen and (max-width: 600px) {
-
 }
 
 .container {
@@ -25,12 +24,13 @@
   display: flex;
   align-content: center;
   justify-content: center;
+  padding: 10px;
 }
 
 .inputEmoji {
+  color: red;
 }
 
 input:invalid {
   background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }
-

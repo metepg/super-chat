@@ -1,0 +1,5 @@
+.react-input-emoji--button svg {
+  fill: black !important;
+  background: #ffcc4d;
+  border-radius: 50%;
+}

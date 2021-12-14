@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
+import './style.css';
 import socket from '../../soketti';
-import InputEmoji from "react-input-emoji";
+import InputEmoji from 'react-input-emoji';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
@@ -25,7 +26,7 @@ const MessageForm = () => {
     setMessage('');
   }
 
-  function onEnterDown()  {
+  function onEnterDown() {
     // Jos viestikenttä on tyhjä älä tee mitään
     if (!message) {
       return;
@@ -41,21 +42,22 @@ const MessageForm = () => {
     <form onSubmit={(e) => validate(e)}>
       <div className={css.container}>
         <InputEmoji
-            style={{ color: 'red' }}
-            className={css.inputEmoji}
-            pattern="^.{1,80}$"
-            title="Max 80 characters."
-            maxLength="80"
-            required="required"
-            placeholder="Type a message"
-            onChange={setMessage}
-            cleanOnEnter
-            onEnter= {onEnterDown}
-            value={message}
-      />
-      <button className={css.sendButton} type="submit">
-        SEND
-      </button>
+          style={{ color: 'red' }}
+          className="inputEmoji"
+          pattern="^.{1,80}$"
+          title="Max 80 characters."
+          maxLength="80"
+          required="required"
+          placeholder="Type a message"
+          onChange={setMessage}
+          cleanOnEnter
+          onEnter={onEnterDown}
+          value={message}
+          borderColor={'#FFFFFF'}
+        />
+        <button className={css.sendButton} type="submit">
+          SEND
+        </button>
       </div>
     </form>
   );
