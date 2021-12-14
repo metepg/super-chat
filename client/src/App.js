@@ -43,10 +43,6 @@ function App() {
   }
 
   function logout() {
-    const logout = confirm('Want to logout?');
-    if (!logout) {
-      return;
-    }
     try {
       const { userName } = JSON.parse(localStorage.getItem('user'));
       socket.emit('user-disconnect', userName);
