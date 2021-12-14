@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { createMessage } from '../../api/message';
 import css from './MessageForm.module.css';
+import './style.css';
 import socket from '../../soketti';
+import InputEmoji from 'react-input-emoji';
 
 const MessageForm = () => {
   // message = inputin sen hetkinen arvo
@@ -24,20 +26,39 @@ const MessageForm = () => {
     setMessage('');
   }
 
+  function onEnterDown() {
+    // Jos viestikenttä on tyhjä älä tee mitään
+    if (!message) {
+      return;
+    }
+    const { userName } = JSON.parse(localStorage.getItem('user'));
+    const msgData = { message, userName };
+    createMessage(msgData);
+    socket.emit('message', msgData);
+    setMessage('');
+  }
+
   return (
     <form onSubmit={(e) => validate(e)}>
-      <input
-        pattern="^.{1,80}$"
-        title="Max 80 characters."
-        maxLength="80"
-        required="required"
-        className={css.inputChat}
-        placeholder="Type something"
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button className={css.sendButton} type="submit">
-        SEND
-      </button>
+      <div className={css.container}>
+        <InputEmoji
+          style={{ color: 'red' }}
+          className="inputEmoji"
+          pattern="^.{1,80}$"
+          title="Max 80 characters."
+          maxLength="80"
+          required="required"
+          placeholder="Type a message"
+          onChange={setMessage}
+          cleanOnEnter
+          onEnter={onEnterDown}
+          value={message}
+          borderColor={'#FFFFFF'}
+        />
+        <button className={css.sendButton} type="submit">
+          SEND
+        </button>
+      </div>
     </form>
   );
 };

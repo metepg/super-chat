@@ -12,7 +12,7 @@
 }
 
 .superController {
-  grid-row: 2/6;
+  grid-row: 2/7;
   grid-column: 1/6;
   overflow: auto;
   display: flex;
@@ -27,13 +27,13 @@
 
 .aside {
   border-left: 3px solid black;
-  grid-row: 2/7;
+  grid-row: 2/8;
   grid-column: 6/-1;
   background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }
 
 .feed {
-  grid-row: 6/7;
+  grid-row: 7/7;
   grid-column: 1/6;
 }
 
@@ -104,6 +104,7 @@
   padding: 5px 10px 5px 15px;
   background-color: #f0f0f0;
   width: 100%;
+  margin-top: 5px;
 }
 
 .messagesList {
@@ -114,12 +115,10 @@ ul {
   padding-left: 0;
 }
 .liMessage {
-  padding: 15px;
-  padding-left: 0;
+  padding: 15px 0 0 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 }
 
 .liMessage:hover {

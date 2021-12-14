@@ -11,13 +11,26 @@
   padding: 8px;
   margin-left: 15px;
   margin-top: 10px;
-  width: 13%;
+  text-align: center;
+  margin: 3px 12px 5px 12px;
+  border-radius: 37px 5px 43px 26px;
 }
+
 @media screen and (max-width: 600px) {
-  .sendButton {
-    width: 30%;
-  }
 }
+
+.container {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.inputEmoji {
+  color: red;
+}
+
 input:invalid {
   background-image: linear-gradient(to top, #d6e4f0 0%, #e7f0fd 100%);
 }
