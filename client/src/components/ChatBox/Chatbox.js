@@ -30,8 +30,9 @@ const ChatBox = () => {
                 <span className={css.msgTime}>{item.messageTime}</span>
               </p>
               <div className={css.flexController}>
-                <Linkify><p className={css.teksti}>
-                  {item.message}</p></Linkify>
+                <Linkify>
+                  <p className={css.teksti}>{item.message}</p>
+                </Linkify>
                 <RemoveButton item={item} />
               </div>
             </li>
