@@ -11,7 +11,7 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
 
   const handleKeypress = e => {
     //it triggers by pressing the enter key
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 || (e.ctrlKey && e.key === 'Enter')) {
       handleFormSubmit(item);
     }
   };
@@ -30,8 +30,12 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
             <form>
               <TextField id="newMessage" value={newMsg}
                          defaultValue={item.activeItemMessage}
+                         hintText="ctrl+enter=submit"
+                         errorText="This field is required"
                          onKeyUp={handleKeypress} onChange={e=>onChange(e)}
-                         variant="outlined" margin="dense" fullWidth />
+                         variant="outlined" margin="dense" fullWidth
+                         multiLine={true}
+              />
             </form>
           </DialogContent>
           <DialogActions>
