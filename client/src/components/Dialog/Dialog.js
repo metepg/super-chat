@@ -30,12 +30,11 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
             <form>
               <TextField id="newMessage" value={newMsg}
                          defaultValue={item.activeItemMessage}
-                         hintText="ctrl+enter=submit"
-                         errorText="This field is required"
-                         onKeyUp={handleKeypress} onChange={e=>onChange(e)}
-                         variant="outlined" margin="dense" fullWidth
-                         multiLine={true}
-              />
+                         hinttext="ctrl+enter=submit"
+                         onKeyUp={handleKeypress}
+                         onChange={e=>onChange(e)}
+                         variant="outlined"
+                         margin="dense" fullWidth/>
             </form>
           </DialogContent>
           <DialogActions>
