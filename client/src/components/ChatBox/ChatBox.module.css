@@ -136,3 +136,8 @@ ul {
   margin: 10px;
   margin-right: 0;
 }
+
+.edited {
+  font-size: 9px;
+  margin-left: 3px;
+}

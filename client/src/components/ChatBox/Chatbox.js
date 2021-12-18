@@ -66,6 +66,15 @@ const ChatBox = () => {
     if (user.userName === item.userName) {
       return true;
     }
+    return false;
+  }
+
+  function hasBeenEdited(item) {
+    //console.log(util.inspect(item, {showHidden: false, depth: null, colors: true}))
+    if(item.edited) {
+      return true;
+    }
+    return false;
   }
 
   return (
@@ -77,6 +86,9 @@ const ChatBox = () => {
               <p className={css.name}>
                 {item.userName}{' '}
                 <span className={css.msgTime}>{item.messageTime}</span>
+                {hasBeenEdited(item) ? (
+                    <span className={css.edited}>(edited)</span>
+                ) : ('')}
               </p>
               <div className={css.flexController}>
                 <Linkify><p className={css.teksti}>
