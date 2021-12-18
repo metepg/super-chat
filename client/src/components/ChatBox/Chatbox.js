@@ -47,7 +47,6 @@ const ChatBox = () => {
   const handleFormSubmit = (item) => {
     console.log(util.inspect(item, {showHidden: false, depth: null, colors: true}))
     const user = JSON.parse(localStorage.getItem('user'));
-    let edited;
     if (user.userName === item.activeItemName) {  //updating username
       socket.emit('edit-message', { id: item.activeItemId, message: formData.newMessage, edited: true })
       handleClose()
