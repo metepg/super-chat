@@ -9,6 +9,7 @@ import { TextField } from '@material-ui/core';
 export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit, item}) {
   const {id,newMsg}=data
 
+
   return (
       <div>
         <Dialog

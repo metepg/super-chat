@@ -39,20 +39,12 @@ const ChatBox = () => {
     setOpen(false);
   };
 
-  const handleFormSubmit = (itemi) => {
-    //console.log(itemi.id)
-    //console.log(itemi.userName)
-    ///console.log(formData.newMessage)
+  const handleFormSubmit = (item) => {
     //console.log(util.inspect(formData, {showHidden: false, depth: null, colors: true}))
-    console.log('JEJE' + itemi.activeItemId);
-    console.log(util.inspect(itemi, {showHidden: false, depth: null, colors: true}))
-
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user.userName === itemi.activeItemName) {  //updating username
-      //const confirm = window.confirm("Are you sure, you want to update this row ?")
-      socket.emit('edit-message', { id: itemi.activeItemId, message: formData.newMessage })
+    if (user.userName === item.activeItemName) {  //updating username
+      socket.emit('edit-message', { id: item.activeItemId, message: formData.newMessage })
       handleClose()
-
     } else {
         handleClose()
     }
@@ -88,17 +80,14 @@ const ChatBox = () => {
                 {hasRight(item) ? (
                         <button className={css.editButton} data-toggle="modal" data-target="#exampleModal"
                         onClick={() => handleClickEdit(item)}>Edit</button>
-                ) : ("")}
+                ) : ('')}
                 <FormDialog open={open} handleClose={handleClose}
                             item={stateEditButton} data={formData} onChange={onChange} handleFormSubmit={handleFormSubmit} />
               </div>
             </li>
           ))}
         </ul>
-
       </section>
-
-
 
       <div className={css.toppaneleft}>
         <div className={css.inputsUsernameSignUp}></div>
