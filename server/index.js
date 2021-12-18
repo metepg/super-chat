@@ -92,6 +92,15 @@ io.on("connection", async (socket) => {
       console.error(err);
     }
   });
+  socket.on("edit-message", async ({ id, message }) => {
+    console.log("edit-message: ", id);
+    try {
+      await Message.updateOne({_id: id}, {$set: {message: message}});
+      socket.emit("message", await Message.find({}));
+    } catch (err) {
+      console.error(err);
+    }
+  });
   socket.on("online", async (user) => {
     try {
       if (userArray.find((e) => (e = user)) !== user) {
