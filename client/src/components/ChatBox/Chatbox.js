@@ -1,11 +1,12 @@
 import MessageFeed from '../MessageFeed/MessageFeed';
 import RemoveButton from '../RemoveButton/RemoveButton';
 import css from './ChatBox.module.css';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import socket from '../../soketti';
 import mapMessageTime from '../../api/mapMessageTime';
 import Linkify from 'linkify-react';
 import FormDialog from '../Dialog/Dialog'
+const util = require('util')
 
 const ChatBox = () => {
   const [list, setList] = React.useState([]);
@@ -13,8 +14,11 @@ const ChatBox = () => {
   const [users, setUsers] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState([]);
-  const [stateEditButton, setStateEditButton] = React.useState();
-  const util = require('util')
+  const [stateEditButton, setStateEditButton] = React.useState({
+    activeItemName: "",
+    activeItemId: "",
+    activeItemMessage: "",
+  })
 
   useEffect(() => {
     socket.on('message', async function (messages) {
@@ -31,7 +35,8 @@ const ChatBox = () => {
     setOpen(true);
     setStateEditButton({
       activeItemName: item.userName,
-      activeItemId: item.id
+      activeItemId: item.id,
+      activeItemMessage: item.message
     })
   };
 
@@ -40,10 +45,11 @@ const ChatBox = () => {
   };
 
   const handleFormSubmit = (item) => {
-    //console.log(util.inspect(formData, {showHidden: false, depth: null, colors: true}))
+    console.log(util.inspect(item, {showHidden: false, depth: null, colors: true}))
     const user = JSON.parse(localStorage.getItem('user'));
+    let edited;
     if (user.userName === item.activeItemName) {  //updating username
-      socket.emit('edit-message', { id: item.activeItemId, message: formData.newMessage })
+      socket.emit('edit-message', { id: item.activeItemId, message: formData.newMessage, edited: true })
       handleClose()
     } else {
         handleClose()
@@ -82,7 +88,9 @@ const ChatBox = () => {
                         onClick={() => handleClickEdit(item)}>Edit</button>
                 ) : ('')}
                 <FormDialog open={open} handleClose={handleClose}
-                            item={stateEditButton} data={formData} onChange={onChange} handleFormSubmit={handleFormSubmit} />
+                            message={stateEditButton}
+                            item={stateEditButton} data={formData}
+                            onChange={onChange} handleFormSubmit={handleFormSubmit} />
               </div>
             </li>
           ))}

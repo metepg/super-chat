@@ -92,10 +92,10 @@ io.on("connection", async (socket) => {
       console.error(err);
     }
   });
-  socket.on("edit-message", async ({ id, message }) => {
+  socket.on("edit-message", async ({ id, message, edited }) => {
     console.log("edit-message: ", id);
     try {
-      await Message.updateOne({_id: id}, {$set: {message: message}});
+      await Message.updateOne({_id: id}, {$set: {edited: "true", message: message}});
       socket.emit("message", await Message.find({}));
     } catch (err) {
       console.error(err);

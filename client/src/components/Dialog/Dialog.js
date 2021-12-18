@@ -6,9 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { TextField } from '@material-ui/core';
 
-export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit, item}) {
+export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit, item, message}) {
   const {id,newMsg}=data
 
+  const handleKeypress = e => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleFormSubmit(item);
+    }
+  };
 
   return (
       <div>
@@ -22,7 +28,10 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
           <DialogTitle id="alert-dialog-title">{id?"Update user":"Edit your message"}</DialogTitle>
           <DialogContent>
             <form>
-              <TextField id="newMessage" value={newMsg} onChange={e=>onChange(e)} placeholder="Enter message" label="Message" variant="outlined" margin="dense" fullWidth />
+              <TextField id="newMessage" value={newMsg}
+                         defaultValue={item.activeItemMessage}
+                         onKeyUp={handleKeypress} onChange={e=>onChange(e)}
+                         variant="outlined" margin="dense" fullWidth />
             </form>
           </DialogContent>
           <DialogActions>
